@@ -1,0 +1,216 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.beangle</groupId>
+    <artifactId>beangle-java</artifactId>
+    <version>29.0</version>
+  </parent>
+  <groupId>org.openurp</groupId>
+  <artifactId>openurp-java-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>0.4.12</version>
+  <name>OpenURP Java Parent</name>
+
+  <organization>
+    <name>The OpenURP Software</name>
+    <url>https://github.com/openurp</url>
+  </organization>
+  <inceptionYear>2014</inceptionYear>
+
+  <properties>
+    <organization.slogan>OpenURP, Agile University Resource Planning Solution.</organization.slogan>
+    <bundle.symbolicName>org.openurp.parent4j</bundle.symbolicName>
+    <bundle.namespace>org.openurp</bundle.namespace>
+    <beangle3.version>3.11.9</beangle3.version>
+    <beangle.maven.version>0.3.33</beangle.maven.version>
+    <snapshotRepoUrl>https://bas.openurp.net/maven</snapshotRepoUrl>
+    <HikariCP.version>3.4.5</HikariCP.version>
+    <dwr.version>3.0.4-RELEASE</dwr.version>
+    <spring.version>4.3.25.RELEASE</spring.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.7</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.commons</groupId>
+        <artifactId>beangle-commons-model</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.ioc</groupId>
+        <artifactId>beangle-ioc-spring</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.commons</groupId>
+        <artifactId>beangle-commons-core</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.commons</groupId>
+        <artifactId>beangle-commons-web</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.security</groupId>
+        <artifactId>beangle-security-core</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.security</groupId>
+        <artifactId>beangle-security-ids</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.ems</groupId>
+        <artifactId>beangle-ems-core</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.orm</groupId>
+        <artifactId>beangle-orm-hibernate</artifactId>
+        <version>${beangle3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>${HikariCP.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.beangle.jakarta</groupId>
+        <artifactId>beangle-jakarta-dwr</artifactId>
+        <version>${dwr.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>edu.washington.cs.types.checker</groupId>
+          <artifactId>checker-framework</artifactId>
+        </exclusion>
+      </exclusions>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>edu.washington.cs.types.checker</groupId>
+          <artifactId>checker-framework</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>${mvn.license.version}</version>
+        <configuration>
+          <strictCheck>true</strictCheck>
+          <inlineHeader><![CDATA[
+${organization.slogan}
+
+Copyright © ${project.inceptionYear}, ${project.organization.name}.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful.
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.]]>
+          </inlineHeader>
+          <includes>
+            <include>src/main/java/**</include>
+            <include>src/main/scala/**</include>
+            <include>src/test/java/**</include>
+            <include>src/test/scala/**</include>
+          </includes>
+          <excludes>
+            <exclude>src/**/package-info.java</exclude>
+          </excludes>
+          <mapping>
+            <java>SLASHSTAR_STYLE</java>
+            <scala>SLASHSTAR_STYLE</scala>
+          </mapping>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>skinny-war</id>
+      <activation>
+        <property>
+          <name>!skinny</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.beangle.maven</groupId>
+            <artifactId>beangle-maven-plugin</artifactId>
+            <version>${beangle.maven.version}</version>
+            <configuration>
+              <dependencyIncludes>*:*</dependencyIncludes>
+              <snapshotRepoUrl>${snapshotRepoUrl}</snapshotRepoUrl>
+            </configuration>
+            <executions>
+              <execution>
+                <id>generate</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>bas</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.2</version>
+            <configuration>
+              <packagingExcludes>
+                %regex[WEB-INF/lib/.*[^T].jar]
+              </packagingExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
+
